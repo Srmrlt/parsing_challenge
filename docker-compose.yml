@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  database:
+    container_name: parsing_challenge_database
+    image: postgres:15-alpine
+    env_file:
+      - .env
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - parsing_challenge_db:/var/lib/postgresql/data/
+    ports:
+      - "5432:5432"
+
+volumes:
+  parsing_challenge_db:
