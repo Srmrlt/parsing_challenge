@@ -6,7 +6,6 @@ from sqlalchemy.orm import declarative_base, sessionmaker
 
 from .config import settings
 
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger('Database')
 
 engine = create_engine(url=settings.db_url_psycopg2, echo=False)
@@ -35,6 +34,5 @@ class SKUOperations:
             with session_factory() as session:
                 with session.begin():
                     session.add(new_sku)
-                logger.info(f"Added a new product with UUID: {new_sku.uuid}")
         except SQLAlchemyError as e:
             logger.error(f"Error adding data: {e}")

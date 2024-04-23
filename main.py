@@ -1,6 +1,9 @@
+import logging
 import os
 
 from src import HTTPSessionManager, Parsing
+
+logging.basicConfig(level=logging.INFO)
 
 
 def main():
