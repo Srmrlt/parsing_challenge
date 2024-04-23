@@ -5,7 +5,16 @@ description = "Default template for PDM package"
 authors = [
     {name = "Sergei Morozov", email = "sergei.sm.morozov@gmail.com"},
 ]
-dependencies = []
+dependencies = [
+    "lxml>=5.2.1",
+    "requests>=2.31.0",
+    "beautifulsoup4>=4.12.3",
+    "aiohttp>=3.9.5",
+    "sqlalchemy>=2.0.29",
+    "pydantic-settings>=2.2.1",
+    "psycopg2-binary>=2.9.9",
+    "python-dotenv>=1.0.1",
+]
 requires-python = ">=3.11"
 readme = "README.md"
 license = {text = "MIT"}
@@ -17,3 +26,26 @@ build-backend = "pdm.backend"
 
 [tool.pdm]
 distribution = true
+
+[tool.pdm.scripts]
+start.cmd = "python -m main"
+memory.cmd = "python -m memory_profiler main.py  "
+start.env_file = ".env"
+
+[tool.pdm.dev-dependencies]
+memory = [
+    "memory-profiler>=0.61.0",
+    "guppy3>=3.1.4.post1",
+    "objgraph>=3.6.1",
+]
+lint = [
+    "flake8>=7.0.0",
+    "pep8-naming>=0.13.3",
+    "flake8-broken-line>=1.0.0",
+    "flake8-return>=1.2.0",
+    "flake8-isort>=6.1.1",
+    "black>=24.4.0",
+]
+pre-commit = [
+    "pre-commit>=3.7.0",
+]
