@@ -14,6 +14,7 @@ class Parsing:
         self.marketplace_tags = []
         self.marketplace = {}
         self.operation_count = 0
+        self.bulk_offer_data = []
 
     def parse_xml(self):
         self.marketplace_tags = ['name', 'company', 'url']
@@ -22,6 +23,7 @@ class Parsing:
         for event, elem in context:
             self.parse_by_tag(elem)
         del context
+        self._send_to_database(end=True)
         logger.info(f"Total number of parsed elements: {self.operation_count}")
 
     def parse_by_tag(self, elem):
@@ -31,7 +33,9 @@ class Parsing:
             self.parse_category(elem)
         elif elem.tag == 'offer':
             parsed_data = OfferParser(elem).parse()
-            SKUOperations.add_sku_data(parsed_data)
+            elem.clear()
+            self.bulk_offer_data.append(parsed_data)
+            self._send_to_database()
             self._count_success_op()
 
     def parse_marketplace(self, elem):
@@ -48,3 +52,8 @@ class Parsing:
         self.operation_count += 1
         if self.operation_count % 1000 == 0:
             logger.info(f"Number of parsed elements: {self.operation_count}")
+
+    def _send_to_database(self, end=False):
+        if len(self.bulk_offer_data) == 850 or end:  # Send when bulk of data is ready
+            SKUOperations.add_sku_data(self.bulk_offer_data)
+            self.bulk_offer_data = []
