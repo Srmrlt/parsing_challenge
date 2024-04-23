@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./sql_scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
       - parsing_challenge_db:/var/lib/postgresql/data/
     ports:
       - "5432:5432"

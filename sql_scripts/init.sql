@@ -1,6 +1,6 @@
 create table public.sku
 (
-    uuid                   uuid,
+    uuid                   uuid PRIMARY KEY,
     marketplace_id         integer,
     product_id             bigint,
     title                  text,
