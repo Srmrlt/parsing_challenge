@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   database:
     container_name: parsing_challenge_database
@@ -11,6 +9,17 @@ services:
       - parsing_challenge_db:/var/lib/postgresql/data/
     ports:
       - "5432:5432"
+
+  parser:
+    container_name: parsing_challenge
+    image: sergei1m/parsing_challenge:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - database
 
 volumes:
   parsing_challenge_db:

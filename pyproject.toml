@@ -5,19 +5,16 @@ description = "Default template for PDM package"
 authors = [
     {name = "Sergei Morozov", email = "sergei.sm.morozov@gmail.com"},
 ]
+
 dependencies = [
     "lxml>=5.2.1",
     "requests>=2.31.0",
-    "beautifulsoup4>=4.12.3",
-    "aiohttp>=3.9.5",
     "sqlalchemy>=2.0.29",
     "pydantic-settings>=2.2.1",
     "psycopg2-binary>=2.9.9",
-    "python-dotenv>=1.0.1",
 ]
+
 requires-python = ">=3.11"
-readme = "README.md"
-license = {text = "MIT"}
 
 [build-system]
 requires = ["pdm-backend"]
@@ -29,7 +26,7 @@ distribution = true
 
 [tool.pdm.scripts]
 start.cmd = "python -m main"
-memory.cmd = "python -m memory_profiler main.py  "
+memory.cmd = "python -m memory_profiler main.py"
 start.env_file = ".env"
 
 [tool.pdm.dev-dependencies]
